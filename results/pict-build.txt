@@ -3,5 +3,6 @@ Pairwise Independent Combinatorial Testing
 
 Usage: pict model [options]
 
-Source build attempt: blocked; MSYS2 package downloads fail certificate validation (unable to get local issuer certificate).
-Output generation below used the official Microsoft PICT v3.7.4 release executable from a temporary directory; this is not a source-build claim.
+Build: Microsoft PICT 3.7.4 CLI built from the recorded source commit with MSYS2 GCC 16.1.0 and CMake 4.3.3.
+Build scope: pict_cli target; optional Windows Resource.rc excluded because GNU windres cannot preprocess its MSVC token-pasting macros. C++ source files were unchanged and the upstream CMakeLists.txt was restored after compilation.
+Reproduce: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DPICT_RUN_TESTS_ENABLED=OFF; cmake --build build --target pict_cli --parallel 4

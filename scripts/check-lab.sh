@@ -71,4 +71,4 @@ if (( failures > 0 )); then
   printf 'AUDIT FAILED: %s issue(s) need attention\n' "$failures"
   exit 1
 fi
-printf 'AUDIT PASSED\n'
+printf 'REPOSITORY AUDIT PASSED (does not confirm Teams Turn in)\n'

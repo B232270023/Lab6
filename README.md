@@ -99,7 +99,17 @@ PICT greedy аргаар тухайн алхамд хамрагдаагүй хо
 
 ### PICT гаралтын эх сурвалж
 
-Албан ёсны PICT эх кодын checkout-ийг лабын репогийн гадна татсан (`pict commit ab76c25`, 2026-09-08). Энэ Windows орчинд WSL хандах эрхгүй; MSYS2-д CMake/GCC татахад TLS сертификатын issuer баталгаажаагүй тул source build дуусаагүй. `results/pict-build.txt` энэ хязгаарлалтыг тодорхой тэмдэглэсэн. Model-ийн тоо, мөрүүдийг шалгахдаа түр хавтсанд авсан Microsoft-ийн албан ёсны v3.7.4 executable ашигласан; source build амжилттай болсон гэж тайлагнаагүй. Linux дээр эх үүсвэрээс build хийгээд **бүх үр дүнг тэр build-ээр дахин үүсгэх** команд:
+Албан ёсны PICT эх кодын checkout-ийг лабын репогийн гадна татаж (`pict commit ab76c25`, 2026-09-08), Microsoft PICT 3.7.4-ийн `pict_cli` executable-ийг MSYS2 GCC 16.1.0, CMake 4.3.3-аар source-оос нь build хийсэн. Windows-ийн `windres` нь нэмэлт `Resource.rc` дахь MSVC macro-г боловсруулж чадаагүй тул зөвхөн CLI target-ийг build хийх үед optional resource жагсаалтыг түр хасаж, C++ эх файлуудыг өөрчлөлгүй, build-ийн дараа upstream CMake файлыг сэргээсэн. Build-ийн commit, help output, compiler болон тойрсон алхмыг `results/pict-build.txt`-д тэмдэглэв; таван гаралтыг source-built CLI-ээр дахин үүсгэсэн. Windows-ын MSYS2 CMake/GCC орчинд дахин build хийх команд:
+
+```powershell
+$env:PICT_SRC = "$HOME\tools\pict"  # Microsoft-ийн source checkout-ийн зам
+$env:PATH = 'C:\msys64\ucrt64\bin;C:\msys64\usr\bin;' + $env:PATH
+cmake -S $PICT_SRC -B "$PICT_SRC/build" -G Ninja -DCMAKE_BUILD_TYPE=Release -DPICT_RUN_TESTS_ENABLED=OFF
+# GNU windres Resource.rc дээр алдаа өгвөл optional pict_cli resource-ийг түр хасаж, upstream CMakeLists.txt-ийг сэргээнэ.
+cmake --build "$PICT_SRC/build" --target pict_cli --parallel 4
+```
+
+Linux дээр бүтэн build-ийг ашиглан бүх үр дүнг дахин үүсгэх команд:
 
 ```sh
 cd ~/tools/pict
