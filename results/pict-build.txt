@@ -1,0 +1,7 @@
+pict commit ab76c25 2026-09-08
+Pairwise Independent Combinatorial Testing
+
+Usage: pict model [options]
+
+Source build attempt: blocked; MSYS2 package downloads fail certificate validation (unable to get local issuer certificate).
+Output generation below used the official Microsoft PICT v3.7.4 release executable from a temporary directory; this is not a source-build claim.
